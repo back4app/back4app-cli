@@ -14,7 +14,7 @@
   "author": "BACK4APP SERVICOS DIGITAIS LTDA",
   "license": "MIT",
   "dependencies": {
-    "parse-cli-server": "file:../parse-cli-server",
+    "parse-cli-server": "^0.0.22",
     "request": "^2.81.0"
   },
   "scripts": {
