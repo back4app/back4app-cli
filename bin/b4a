@@ -22,7 +22,7 @@ function _b4a(args) {
 
 function _parseCliServer() {
     process.argv = process.argv.slice(3);
-    require('"../node_modules/parse-cli-server/src/cli/parse-cli-server.js"');
+    require('"../node_modules/parse-cli-server/lib/cli/parse-cli-server.js"');
 }
 
 function main() {
