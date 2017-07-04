@@ -1,0 +1,27 @@
+{
+  "name": "back4app-cli",
+  "version": "0.0.1",
+  "description": "back4app CLI integration",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/back4app/back4app-cli"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "LICENSE"
+  ],
+  "author": "BACK4APP SERVICOS DIGITAIS LTDA",
+  "license": "MIT",
+  "dependencies": {
+    "parse-cli-server": "file:../parse-cli-server",
+    "request": "^2.81.0"
+  },
+  "scripts": {
+    "b4a": "nodejs src/scripts/b4a.js",
+    "postinstall": "npm run b4a"
+  },
+  "bin": {
+    "b4a": "./bin/b4a"
+  }
+}

@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+var path = require('path'),
+    childProcess = require('child_process');
+
+function _b4a(args) {
+    var b4a = require('../src/b4a'),
+        filename = path.join(__dirname, '../bin_local', b4a.binaryName()),
+        child = childProcess.spawn(filename, args);
+
+    child.stdout.on(data => {
+        console.log(`stdout: ${data}`);
+    });
+
+    child.stderr.on('data', data => {
+        console.log(`stderr: ${data}`);
+    });
+
+    child.on('close', code => {
+        console.log(`child process exited with code ${code}`);
+    });
+}
+
+function _parseCliServer() {
+    process.argv = process.argv.slice(3);
+    require('"../node_modules/parse-cli-server/src/cli/parse-cli-server.js"');
+}
+
+function main() {
+    var args = process.argv.slice(2).map(val => val);
+
+    if (args[0] == "runlocal") {
+        _parseCliServer()
+    }
+    else {
+        _b4a(args);
+    }
+}
+
+main();
