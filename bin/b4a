@@ -1,13 +1,23 @@
 #!/usr/bin/env node
-var path = require('path'),
+var fs = require('fs'),
+    path = require('path'),
     childProcess = require('child_process');
 
 function _b4a(args) {
     var b4a = require('../src/b4a'),
-        filename = path.join(__dirname, '../bin_local', b4a.binaryName()),
-        child = childProcess.spawn(filename, args);
+        filename = path.join(__dirname, '../bin_local', b4a.binaryName());
 
-    child.stdout.on(data => {
+    try {
+        fs.accessSync(filename);
+    }
+    catch (e) {
+        console.error(`Failed to access b4a file: ${filename}`);
+        throw e;
+    }
+
+    var child = childProcess.spawn(filename, args);
+
+    child.stdout.on('data', data => {
         console.log(`stdout: ${data}`);
     });
 
@@ -26,13 +36,14 @@ function _parseCliServer() {
 }
 
 function main() {
-    var args = process.argv.slice(2).map(val => val);
+    var command = process.argv[2],
+        jsCommands = ["runlocal"];
 
-    if (args[0] == "runlocal") {
-        _parseCliServer()
+    if (jsCommands.indexOf(command) != -1) {
+        _parseCliServer();
     }
     else {
-        _b4a(args);
+        _b4a(process.argv.slice(2));
     }
 }
 
